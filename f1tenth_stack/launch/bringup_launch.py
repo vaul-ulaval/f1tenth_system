@@ -83,6 +83,11 @@ def generate_launch_description():
         name='joy_teleop',
         parameters=[LaunchConfiguration('joy_config')]
     )
+    teleop_axis_merging_node = Node(
+        package='teleop_axis_merging',
+        executable='teleop_axis_merging_node',
+        name='teleop_axis_merging_node'
+    )
     ackermann_to_vesc_node = Node(
         package='vesc_ackermann',
         executable='ackermann_to_vesc_node',
@@ -121,9 +126,9 @@ def generate_launch_description():
         arguments=['0.27', '0.0', '0.11', '0.0', '0.0', '0.0', 'base_link', 'laser']
     )
 
-    # finalize
     ld.add_action(joy_node)
     ld.add_action(joy_teleop_node)
+    ld.add_action(teleop_axis_merging_node)
     ld.add_action(ackermann_to_vesc_node)
     ld.add_action(vesc_to_odom_node)
     ld.add_action(vesc_driver_node)
